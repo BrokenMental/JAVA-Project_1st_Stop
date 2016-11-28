@@ -12,11 +12,13 @@ package javaproject;
 public class Project_Java extends javax.swing.JFrame {
     
     DB DB = new DB();
-    String strSQL = "Select * From idpw";
+    String IDSQL = "SELECT * FROM IDPW";
+    String ID = "";
+    String PW = "";
 
     public void ModalDialog(){
         SigninDialog.setLocation(350,350);
-        SigninDialog.setSize(330,150);
+        SigninDialog.setSize(335,150);
         SigninDialog.show();
     }
     
@@ -24,15 +26,28 @@ public class Project_Java extends javax.swing.JFrame {
      * Creates new form JavaProject
      */
     public Project_Java() {
-        ModalDialog();
         initComponents();
+        ModalDialog();
         try{
-            String strData = null;
+            // String strData = null;
             DB.dbOpen();
-            //getDBData(strSQL);
+            getIDData(IDSQL);
             DB.dbClose();
         }catch(Exception e){
             System.out.println("SQLExeption : "+ e.getMessage());
+        }
+    }    
+    
+    public void getIDData(String Query){
+        try{
+            DB.DB_rs=DB.DB_stmt.executeQuery(Query);
+            while(DB.DB_rs.next()){
+                ID = DB.DB_rs.getString(1);
+                PW = DB.DB_rs.getString(2);
+            }
+            System.out.printf("ID = %d, PW = %d",ID,PW);
+        }catch(Exception e){
+            System.out.println("SQLException : " + e.getMessage());
         }
     }
 
@@ -55,6 +70,7 @@ public class Project_Java extends javax.swing.JFrame {
         btnSignin = new javax.swing.JButton();
         btnSignup = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        LabelCon = new javax.swing.JLabel();
         SignupDialog = new javax.swing.JDialog();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -63,7 +79,7 @@ public class Project_Java extends javax.swing.JFrame {
         textPWcon = new javax.swing.JTextField();
         btnOverlap = new javax.swing.JButton();
         btnOK = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        textSelect = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -74,9 +90,9 @@ public class Project_Java extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        textMate = new javax.swing.JTextField();
+        textToday = new javax.swing.JTextField();
+        textPrice = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -84,7 +100,7 @@ public class Project_Java extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
 
         SigninDialog.setModal(true);
-        SigninDialog.setPreferredSize(new java.awt.Dimension(330, 100));
+        SigninDialog.setPreferredSize(new java.awt.Dimension(350, 200));
 
         jLabel9.setText("ID : ");
 
@@ -93,6 +109,11 @@ public class Project_Java extends javax.swing.JFrame {
         jLabel11.setText("회원이 아니십니까?");
 
         btnSignin.setText("로그인");
+        btnSignin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSigninActionPerformed(evt);
+            }
+        });
 
         btnSignup.setText("회원가입");
         btnSignup.addActionListener(new java.awt.event.ActionListener() {
@@ -107,34 +128,36 @@ public class Project_Java extends javax.swing.JFrame {
         SigninDialog.getContentPane().setLayout(SigninDialogLayout);
         SigninDialogLayout.setHorizontalGroup(
             SigninDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SigninDialogLayout.createSequentialGroup()
+            .addGroup(SigninDialogLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(SigninDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(SigninDialogLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6)
+                        .addGap(158, 158, 158))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SigninDialogLayout.createSequentialGroup()
                         .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnSignup))
-                    .addGroup(SigninDialogLayout.createSequentialGroup()
-                        .addGroup(SigninDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(SigninDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textID)
-                            .addComponent(textPW, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SigninDialogLayout.createSequentialGroup()
+                        .addGroup(SigninDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(LabelCon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(SigninDialogLayout.createSequentialGroup()
+                                .addGroup(SigninDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel10))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(SigninDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(textID)
+                                    .addComponent(textPW, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSignin)))
                 .addContainerGap())
-            .addGroup(SigninDialogLayout.createSequentialGroup()
-                .addGap(129, 129, 129)
-                .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         SigninDialogLayout.setVerticalGroup(
             SigninDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SigninDialogLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(SigninDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -146,6 +169,8 @@ public class Project_Java extends javax.swing.JFrame {
                     .addComponent(textPW, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSignin))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(LabelCon, javax.swing.GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(SigninDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSignup)
                     .addComponent(jLabel11))
@@ -169,24 +194,21 @@ public class Project_Java extends javax.swing.JFrame {
             .addGroup(SignupDialogLayout.createSequentialGroup()
                 .addGroup(SignupDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(SignupDialogLayout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addComponent(jLabel7))
+                    .addGroup(SignupDialogLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(SignupDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
                             .addComponent(jLabel12))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(SignupDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textIDcon)
-                            .addComponent(textPWcon, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
+                            .addComponent(textPWcon, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(textIDcon))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnOverlap)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SignupDialogLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnOK)))
-                .addContainerGap())
-            .addGroup(SignupDialogLayout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(jLabel7)
+                        .addGroup(SignupDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnOK)
+                            .addComponent(btnOverlap))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         SignupDialogLayout.setVerticalGroup(
@@ -209,8 +231,6 @@ public class Project_Java extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jTextField1.setText("jTextField1");
 
         jButton1.setText("검색");
 
@@ -250,11 +270,7 @@ public class Project_Java extends javax.swing.JFrame {
 
         jLabel1.setText("가계부");
 
-        jTextField2.setText("jTextField2");
-
-        jTextField3.setText("jTextField3");
-
-        jTextField4.setText("jTextField4");
+        textToday.setEditable(false);
 
         jLabel2.setText("재료명");
 
@@ -280,7 +296,7 @@ public class Project_Java extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                                .addComponent(textSelect, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -301,12 +317,12 @@ public class Project_Java extends javax.swing.JFrame {
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField4)
-                            .addComponent(jTextField3)))
+                            .addComponent(textPrice)
+                            .addComponent(textToday)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)))
+                        .addComponent(textMate, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton3)
@@ -319,23 +335,23 @@ public class Project_Java extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textMate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textToday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3))
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -353,9 +369,17 @@ public class Project_Java extends javax.swing.JFrame {
 
     private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed
         SignupDialog.setLocation(350,350);
-        SignupDialog.setSize(350,350);
+        SignupDialog.setSize(297,150);
         SignupDialog.show();
     }//GEN-LAST:event_btnSignupActionPerformed
+
+    private void btnSigninActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSigninActionPerformed
+        if(!ID.equals(String.valueOf(textID.getText())) && !PW.equals(String.valueOf(textPW.getText()))){
+            SigninDialog.dispose();
+        }else{
+            LabelCon.setText("아이디/비밀번호를 확인하세요.");
+        }
+    }//GEN-LAST:event_btnSigninActionPerformed
 
     /**
      * @param args the command line arguments
@@ -394,6 +418,7 @@ public class Project_Java extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel LabelCon;
     private javax.swing.JDialog SigninDialog;
     private javax.swing.JDialog SignupDialog;
     private javax.swing.JButton btnOK;
@@ -422,13 +447,13 @@ public class Project_Java extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField textID;
     private javax.swing.JTextField textIDcon;
+    private javax.swing.JTextField textMate;
     private javax.swing.JTextField textPW;
     private javax.swing.JTextField textPWcon;
+    private javax.swing.JTextField textPrice;
+    private javax.swing.JTextField textSelect;
+    private javax.swing.JTextField textToday;
     // End of variables declaration//GEN-END:variables
 }
