@@ -18,7 +18,7 @@ public class Project_Java extends javax.swing.JFrame {
 
     public void ModalDialog(){
         SigninDialog.setLocation(350,350);
-        SigninDialog.setSize(335,150);
+        SigninDialog.setSize(335,200);
         SigninDialog.show();
     }
     
@@ -124,34 +124,39 @@ public class Project_Java extends javax.swing.JFrame {
 
         jLabel6.setText("로그인");
 
+        LabelCon.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
         javax.swing.GroupLayout SigninDialogLayout = new javax.swing.GroupLayout(SigninDialog.getContentPane());
         SigninDialog.getContentPane().setLayout(SigninDialogLayout);
         SigninDialogLayout.setHorizontalGroup(
             SigninDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SigninDialogLayout.createSequentialGroup()
+                .addGap(129, 129, 129)
+                .addComponent(jLabel6)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(SigninDialogLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(SigninDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(SigninDialogLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6)
-                        .addGap(158, 158, 158))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SigninDialogLayout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSignup))
+                        .addComponent(LabelCon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(76, 76, 76))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SigninDialogLayout.createSequentialGroup()
-                        .addGroup(SigninDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(LabelCon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(SigninDialogLayout.createSequentialGroup()
+                        .addGap(0, 15, Short.MAX_VALUE)
+                        .addGroup(SigninDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SigninDialogLayout.createSequentialGroup()
                                 .addGroup(SigninDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9)
                                     .addComponent(jLabel10))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(SigninDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(textID)
-                                    .addComponent(textPW, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSignin)))
+                                    .addComponent(textPW, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSignin))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SigninDialogLayout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnSignup)))))
                 .addContainerGap())
         );
         SigninDialogLayout.setVerticalGroup(
@@ -169,13 +174,15 @@ public class Project_Java extends javax.swing.JFrame {
                     .addComponent(textPW, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSignin))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(LabelCon, javax.swing.GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(LabelCon, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(SigninDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSignup)
                     .addComponent(jLabel11))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        SignupDialog.setModal(true);
 
         jLabel7.setText("회원가입");
 
@@ -368,8 +375,9 @@ public class Project_Java extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed
+        //SigninDialog.dispose();
         SignupDialog.setLocation(350,350);
-        SignupDialog.setSize(297,150);
+        SignupDialog.setSize(300,180);
         SignupDialog.show();
     }//GEN-LAST:event_btnSignupActionPerformed
 
